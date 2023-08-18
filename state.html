@@ -7,12 +7,35 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
     const root = document.getElementById('root');
-    const Container = () => (
-        <div>
-            <h3>Total clicks: 0</h3>
-            <button>Click me</button>
-        </div> 
-    )
-    ReactDOM.render(<Container />, root)
+    // let counter = 0;
+    // function countUp() {
+    //     counter = counter + 1;
+    //     render()
+    // }
+    // function render() {
+    //     ReactDOM.render(<APP />, root)
+    // }
+    const App = () => {
+        //const data = React.useState(0)
+        //console.log(data) //[0, ƒ] -> [data, data를 변하게 도와주는 함수]
+        //이 data를 담아서 사용하려면
+        //const counter = data[0]
+        //const modifier = data[1] 이렇게 담아야 하는데 비효율적
+        //const x = [1, 2, 3]; const [a, b, c] = x; 이렇게 담을 수 있음 (js 문법)
+        const [counter, setCounter] = React.useState(0);
+        const onClick = () => { 
+            setCounter(counter + 1);
+        };
+        return (
+            <div>
+                <h3>Total clicks: {counter}</h3>
+                <button onClick={onClick}>Click me</button>
+            </div> 
+        )
+    }
+    //setCounter로 counter 값을 변경할 때 컴포넌트 전체가 재생성됨 (새로운 값을 가지고 리렌더링)
+    //모든 부분이 리렌더링되는 것이 아니라 바꾼 부분만 바꿔줌
+    //state를 바꾸면 리렌더링이 일어난다!
+    ReactDOM.render(<App />, root)
 </script>
 </html>

@@ -24,7 +24,11 @@
         //const x = [1, 2, 3]; const [a, b, c] = x; 이렇게 담을 수 있음 (js 문법)
         const [counter, setCounter] = React.useState(0);
         const onClick = () => { 
-            setCounter(counter + 1);
+            //1. 직접 값 수정해주는 방법
+            // setCounter(counter + 1);
+            //2. 함수 전달
+            //first argument: current value
+            setCounter((current) => current + 1); //현재 값이 보장되기 때문에 더 안전한 방법      
         };
         return (
             <div>

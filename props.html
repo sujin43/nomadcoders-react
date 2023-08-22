@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script> <!-- application이 interactive하도록 만들어주는 library -->
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script> <!-- 모든 React element들을 HTML body에 둘 수 있도록 함 -->
+<!-- <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script> -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    // function Btn(props) { //props: object
+    function Btn({ text, changeValue, fontSize }) { //props: object
+        // Save Changes was rendered
+        // Continue was rendered
+        // Revert Changes was rendered
+        // Continue was rendered
+        // Continue 버튼은 변경된 게 없으니 다시 그려질 필요 없음 -> React.memo 사용
+        console.log(text, "was rendered")
+        return <button style={{backgroundColor: "tomato", color: "white", padding: "10px 20px", border: 0, borderRadius: 10}} onClick={changeValue}>{text}</button>
+    }
+    const MemorizedBtn = React.memo(Btn)
+    const App = () => {
+        const [value, setValue] = React.useState("Save Changes");
+        //부모가 상태 변경이 있다면 모든 자식 컴포넌트가 re-render 될 것이고 추후에 어플리케이션이 느려지는 원인이 될 수 있음
+        const changeValue = () => setValue("Revert Changes");
+        return (
+            <div>
+                <MemorizedBtn text={value} changeValue={changeValue} />
+                <MemorizedBtn text="Continue"/>
+            </div> 
+        )
+    }
+
+    const root = document.getElementById('root');
+    ReactDOM.render(<App />, root)
+</script>
+</html>
